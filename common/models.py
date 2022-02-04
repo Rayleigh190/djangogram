@@ -8,7 +8,7 @@ class User(AbstractUser):
         ('F', 'Female'),
         ('C', 'Custom'),
     ]
-    nickname = models.CharField(max_length=255)
+    nickname = models.CharField(blank=True, max_length=255)
     profile_photo = models.ImageField(blank=True)
     website = models.URLField(blank=True)
     bio = models.TextField(blank=True)
