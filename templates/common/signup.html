@@ -16,7 +16,7 @@
                     {% include "form_errors.html" %}
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <i class="fas fa-user fa-lg me-3 fa-fw mr-3"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="text" id="username" name="username" class="form-control" value="{{ form.username.value|default_if_none:'' }}" placeholder="Your ID" />
 <!--                      <label class="form-label" for="username">Your ID</label>-->
@@ -24,7 +24,7 @@
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <i class="fas fa-lock fa-lg me-3 fa-fw mr-3"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="password" id="password1" name="password1" class="form-control" value="{{ form.password1.value|default_if_none:'' }}" placeholder="Password"/>
 <!--                      <label class="form-label" for="password1">Password</label>-->
@@ -32,7 +32,7 @@
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <i class="fas fa-key fa-lg me-3 fa-fw mr-3"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="password" id="password2" name="password2" class="form-control" value="{{ form.password2.value|default_if_none:'' }}" placeholder="Repeat your password"/>
 <!--                      <label class="form-label" for="password2">Repeat your password</label>-->
@@ -40,6 +40,7 @@
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-address-card fa-lg me-3 fa-fw mr-3"></i>
                       <div class="form-row">
                         <div class="col">
                           <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.first_name.value|default_if_none:'' }}" placeholder="First name">
@@ -51,7 +52,7 @@
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw mr-3"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="email" id="email" name="email" class="form-control" value="{{ form.email.value|default_if_none:'' }}" placeholder="Your Email"/>
 <!--                      <label class="form-label" for="email">Your Email</label>-->

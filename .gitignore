@@ -3,6 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,pycharm,windows
 ### Custom ###
 secrets.json
+media/
 
 ### Django ###
 *.log
