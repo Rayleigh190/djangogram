@@ -16,7 +16,7 @@ class Post(TimeStampedModel):
         on_delete=models.CASCADE,
         related_name='post_author'
     )
-    image = models.ImageField(blank=True)
+    image = models.ImageField()
     caption = models.TextField(blank=True)
     image_likes = models.ManyToManyField(User, blank=True, related_name='post_image_likes')
 
