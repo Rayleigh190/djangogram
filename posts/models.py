@@ -5,6 +5,7 @@ from common.models import User
 class TimeStampedModel(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+    modify_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         abstract = True

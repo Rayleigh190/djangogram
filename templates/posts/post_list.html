@@ -7,7 +7,54 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-sm-6">
             <div class="card bg-light mt-3">
-                <div class="card-header px-2"><i class="fas fa-user-circle fa-lg mr-2"></i>{{ post.author }}</div>
+                <div class="card-header px-2">
+                    <i class="fas fa-user-circle fa-lg mr-2"></i>{{ post.author }}
+
+
+                    <!-- Modal Start-->
+                    {% if request.user == post.author %}
+                    <button type="button" class="btn float-right mr-1" style="padding: 0;" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-ellipsis-h fa-lg"></i></button>
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Post Menu</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            선택하세요.
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" >Delete</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='{% url 'posts:post_modify' post.id %}'">Modify</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% else %}
+                    <button type="button" class="btn float-right mr-1" style="padding: 0;" data-toggle="modal" data-target="#exampleModalCenter2"><i class="fas fa-ellipsis-h fa-lg"></i></button>
+                    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle2">Post Menu</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            본인 게시물이 아닙니다.<br>로그인 하세요.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+                    <!-- Modal End -->
+
+
+                </div>
               <img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
               <div class="card-body">
                 <p class="card-text">{{ post.caption }}</p>

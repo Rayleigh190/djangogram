@@ -58,6 +58,15 @@
                             <div class="error_msg"></div>
                             <div class="uploaded_file_view" id="uploaded_view">
                                 <span class="file_remove">X</span>
+                                {% if form.instance.image %}
+                                <script>
+                                    $(document).ready(function(){
+                                        $("#uploaded_view").addClass("show");
+                                        $("#uploaded_view").css("display","block");
+                                       })
+                                </script>
+                                <img src="{{ form.instance.image.url }}">
+                                {% endif %}
                             </div>
                         </div>
                         <div class="form-group">
@@ -94,6 +103,7 @@
 		}
 	});
 	$(".file_remove").on("click", function(e){
+	    $("#upload_file").val("");
 		$("#uploaded_view").removeClass("show");
 		$("#uploaded_view").find("img").remove();
 		$("#uploaded_view").hide();
