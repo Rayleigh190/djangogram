@@ -63,9 +63,11 @@
                                     $(document).ready(function(){
                                         $("#uploaded_view").addClass("show");
                                         $("#uploaded_view").css("display","block");
+                                        btnOuter.addClass("file_uploading");
+                                        btnOuter.addClass("file_uploaded");
                                        })
                                 </script>
-                                <img src="{{ form.instance.image.url }}">
+                                <img id="pre_img"src="{{ form.instance.image.url }}">
                                 {% endif %}
                             </div>
                         </div>
@@ -73,6 +75,7 @@
                             <textarea class="form-control" name="caption" id="caption" rows="8">{{ form.caption.value|default_if_none:'' }}</textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">올리기</button>
+                         <button type="button" class="btn btn-danger" onclick="location.href='{% url 'posts:index' %}'">취소</button>
                     </form>
 
                 </div>
@@ -100,10 +103,11 @@
 			setTimeout(function(){
 				$("#uploaded_view").append('<img src="'+uploadedFile+'" />').addClass("show");
 			},580);
+			$("#pre_img").remove()
 		}
 	});
 	$(".file_remove").on("click", function(e){
-	    $("#upload_file").val("");
+	    $("#upload_file").val("")
 		$("#uploaded_view").removeClass("show");
 		$("#uploaded_view").find("img").remove();
 		$("#uploaded_view").hide();

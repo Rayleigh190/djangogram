@@ -27,7 +27,7 @@
                             선택하세요.
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" >Delete</button>
+                            <button type="button" class="delete btn btn-danger" data-uri="{% url 'posts:post_delete' post.id %}">Delete</button>
                             <button type="button" class="btn btn-primary" onclick="location.href='{% url 'posts:post_modify' post.id %}'">Modify</button>
                           </div>
                         </div>
@@ -58,21 +58,29 @@
               <img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
               <div class="card-body">
                 <p class="card-text">{{ post.caption }}</p>
+                  {% if post.modify_at %}
+                  <p class="card-text"><small class="text-muted">{{ post.modify_at }}(수정됨)</small></p>
+                  {% else %}
                 <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
+                  {% endif %}
               </div>
             </div>
         </div>
     </div>
 </div>
 {% endfor %}
-<!--    <ul>-->
-<!--        {% for post in post_list %}-->
-<!--            <li>-->
-<!--                {{ post.author }} {{ post.caption }}-->
-<!--                <img src="{{ post.image.url }}" width="100" height="100">-->
-<!--            </li>-->
-<!--        {% endfor %}-->
-<!--    </ul>-->
 {% endif %}
 
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".delete").on('click',function() {
+            if(confirm("정말로 삭제하시겠습니가?")) {
+                location.href = $(this).data('uri');
+            }
+        });
+    });
+</script>
 {% endblock %}

@@ -52,4 +52,17 @@ def post_modify(request, post_id):
         form = PostForm(instance=post)
     context = {'form': form}
     return render(request, 'posts/post_form.html', context)
+
+
+@login_required(login_url='common:login')
+def post_delete(request, post_id):
+    """
+    post 삭제
+    """
+    post = get_object_or_404(Post, pk=post_id)
+    if request.user != post.author:
+        messages.error(request, '삭제권한이 없습니다')
+        return redirect('posts:index', post_id=post.id)
+    post.delete()
+    return redirect('posts:index')
 # Create your views here.
