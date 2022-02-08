@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -11,7 +11,8 @@ def index(request):
     posts 목록 출력
     """
     post_list = Post.objects.all().order_by('-create_at')
-    context = {'post_list': post_list}
+    form = CommentForm()
+    context = {'post_list': post_list, 'form': form}
     return render(request, 'posts/post_list.html', context)
 
 
@@ -20,6 +21,7 @@ def post_create(request):
     """
     post 등록
     """
+    print("0")
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -65,4 +67,30 @@ def post_delete(request, post_id):
         return redirect('posts:index', post_id=post.id)
     post.delete()
     return redirect('posts:index')
+
+
+@login_required(login_url='common:login')
+def comment_create(request, post_id):
+    """
+    post 댓글 등록
+    """
+    print("0")
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == "POST":
+        print("1")
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            print("2")
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.create_at = timezone.now()
+            comment.post = post
+            comment.save()
+            return redirect('posts:index')
+    else:
+        form = CommentForm()
+    print("3")
+    context = {'form': form}
+    return render(request, 'posts/post_list.html', context)
+    # return redirect(request, 'posts:index', {'form': form})
 # Create your views here.

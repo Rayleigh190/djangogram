@@ -64,6 +64,30 @@
                 <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
                   {% endif %}
               </div>
+
+                <form action="{% url 'posts:comment_create' post.id %}" method="post" class="post-form">
+                    {% csrf_token %}
+                    <!-- 오류 표시 Start -->
+             {% if form.errors %}
+             <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                    {% if field.errors %}
+                        <strong>{{ field.label }}</strong>
+                        {{ field.errors }}
+                    {% endif %}
+                 {% endfor %}
+             </div>
+             {% endif %}
+            <!-- 오류 표시 End -->
+                    <div class="input-group">
+                      <input type="text" class="form-control" name="content" value="{{ form.content.value|default_if_none:'' }}" placeholder="댓글 달기..." >
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">게시</button>
+                      </div>
+                    </div>
+                </form>
+
+
             </div>
         </div>
     </div>

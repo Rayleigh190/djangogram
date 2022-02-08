@@ -28,9 +28,9 @@ class Comment(TimeStampedModel):
         on_delete=models.CASCADE,
         related_name='comment_author'
     )
-    posts = models.ForeignKey(
+    post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
         related_name='comment_post'
     )
-    contents = models.TextField(blank=True)
+    content = models.TextField()
