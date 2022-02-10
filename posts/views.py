@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post
+from .models import Post, Comment
 from .forms import PostForm, CommentForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -84,5 +84,19 @@ def comment_create(request, post_id):
             comment.post = post
             comment.save()
             return redirect('posts:index')
+
+
+@login_required(login_url='common:login')
+def comment_delete(request, comment_id):
+    """
+    post 댓글 삭제
+    """
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user != comment.author:
+        messages.error(request, '댓글삭제권한이 없습니다')
+        return redirect('posts:index')
+    else:
+        comment.delete()
+    return redirect('posts:index')
 
 # Create your views here.
