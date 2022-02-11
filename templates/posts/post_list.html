@@ -78,10 +78,16 @@
                             <div class="row row-cols-1">
                               <div class="col text-muted"><span class="badge badge-secondary">{{ comment.author }}</span>&nbsp;&nbsp;{{ comment.content }}
                                 {% if request.user == comment.author %}
+
                                 <a href="{% url 'posts:comment_delete' comment.id %}" class="small float-right" data-uri="">삭제</a>
+                                  <a href="{% url 'posts:comment_modify' comment.id %}" class="small float-right" data-uri="">수정 </a>
                                  {% endif %}
                               </div>
+                                {% if comment.modify_at %}
+                              <div class="col text-muted"><small>{{ comment.modify_at }}(수정됨)</small></div>
+                                {% else %}
                               <div class="col text-muted"><small>{{ comment.create_at }}</small></div>
+                                {% endif %}
                             </div>
                           </div>
                       </div>

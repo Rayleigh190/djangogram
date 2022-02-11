@@ -99,4 +99,23 @@ def comment_delete(request, comment_id):
         comment.delete()
     return redirect('posts:index')
 
+
+@login_required(login_url='common:login')
+def comment_modify(request, comment_id):
+    """
+    post 댓글 수정
+    """
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.modify_at = timezone.now()
+            comment.save()
+            return redirect('posts:index')
+    else:
+        form = CommentForm(instance=comment)
+    context = {'form': form}
+    return render(request, 'posts/comment_form.html', context)
 # Create your views here.
