@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views, like_views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -14,4 +14,7 @@ urlpatterns = [
     path('<int:post_id>/comment_create/', views.comment_create, name="comment_create"),
     path('<int:comment_id>/comment_delete/', views.comment_delete, name="comment_delete"),
     path('<int:comment_id>/comment_modify/', views.comment_modify, name="comment_modify"),
+
+    # like_views.py
+    path('like/post/<int:post_id>/', like_views.like_post, name="like_post"),
 ]
