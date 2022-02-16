@@ -13,3 +13,13 @@ def like_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     post.image_likes.add(request.user)
     return redirect("posts:index")
+
+
+@login_required(login_url='common:login')
+def like_delete(request, post_id):
+    """
+    post 좋아요 삭제
+    """
+    post = get_object_or_404(Post, pk=post_id)
+    post.image_likes.remove(request.user)
+    return redirect('posts:index')

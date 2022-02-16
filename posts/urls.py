@@ -17,4 +17,5 @@ urlpatterns = [
 
     # like_views.py
     path('like/post/<int:post_id>/', like_views.like_post, name="like_post"),
+    path('like-delete/post/<int:post_id>/', like_views.like_delete, name="like-delete_post"),
 ]
