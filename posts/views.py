@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 from django.utils import timezone
@@ -49,7 +49,8 @@ def post_modify(request, post_id):
             post.author = request.user
             post.modify_at = timezone.now()
             post.save()
-            return redirect('posts:index')
+            return redirect('{}#post_{}'.format(
+                resolve_url('posts:index'), post.id))
     else:
         form = PostForm(instance=post)
     context = {'form': form}
@@ -83,7 +84,9 @@ def comment_create(request, post_id):
             comment.create_at = timezone.now()
             comment.post = post
             comment.save()
-            return redirect('posts:index')
+            # return redirect('posts:index')
+            return redirect('{}#post_{}'.format(
+                resolve_url('posts:index'), post.id))
 
 
 @login_required(login_url='common:login')
@@ -97,8 +100,9 @@ def comment_delete(request, comment_id):
         return redirect('posts:index')
     else:
         comment.delete()
-    return redirect('posts:index')
-
+    # return redirect('posts:index')
+    return redirect('{}#post_{}'.format(
+        resolve_url('posts:index'), comment.post.id))
 
 @login_required(login_url='common:login')
 def comment_modify(request, comment_id):
@@ -113,7 +117,9 @@ def comment_modify(request, comment_id):
             comment.author = request.user
             comment.modify_at = timezone.now()
             comment.save()
-            return redirect('posts:index')
+            # return redirect('posts:index')
+            return redirect('{}#post_{}'.format(
+                resolve_url('posts:index'), comment.post.id))
     else:
         form = CommentForm(instance=comment)
     context = {'form': form}
