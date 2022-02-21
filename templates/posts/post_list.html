@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load post_filter %}
 {% block content %}
 
 {% if post_list %}
@@ -71,7 +72,7 @@
                         <a href="{% url 'posts:like_post' post.id %}" data-uri=""><i class="far fa-heart fa-lg"></i>좋아요</a>
                         {{ post.image_likes.count }}
                     </div>
-                    <p class="card-text">{{ post.caption }}</p>
+                    <p class="card-text">{{ post.caption|mark }}</p>
                     {% if post.modify_at %}
                     <p class="card-text"><small class="text-muted">{{ post.modify_at }}(수정됨)</small></p>
                     {% else %}
